@@ -1,4 +1,4 @@
-package algebra
+import algebra._
 import  Utils._
 
 object TestFiniteField extends App {

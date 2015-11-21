@@ -63,6 +63,8 @@ case class FiniteField(p: Int, w: Int) extends Field {
       case 1 => this
       case p if p % 2 == 1 => this * (this * this).power((p - 1) / 2)
       case p if p % 2 == 0 => (this * this).power(p / 2)
+      //case p if p % 2 == 1 => this * (this * this).power((p - 1) / 2)
+      //case p if p % 2 == 0 => (this * this).power(p / 2)
     }
 
     def inverse: T2 = {

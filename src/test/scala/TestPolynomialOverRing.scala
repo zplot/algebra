@@ -1,4 +1,4 @@
-package algebra
+import algebra._
 import  Utils._
 import scala.language.implicitConversions
 

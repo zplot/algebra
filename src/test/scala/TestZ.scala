@@ -1,4 +1,4 @@
-package algebra
+import algebra._
 
 
 object TestZ extends App {

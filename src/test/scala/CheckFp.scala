@@ -35,19 +35,17 @@ object CheckFp extends Properties("Fp") {
 
   property("subtract") = forAll (myGen) { (n:(Int,Int,Int)) =>
     n match {
-      case (n1, n2, n3) => {
+      case (n1, n2, n3) =>
         val Fpcase = Fp(n3)
         Fpcase.builder(n1) - Fpcase.builder(n2) == Fpcase.builder(n1 - n2)
-      }
     }
   }
 
   property("multiply") = forAll (myGen) { (n:(Int,Int,Int)) =>
     n match {
-      case (n1, n2, n3) => {
+      case (n1, n2, n3) =>
         val Fpcase = Fp(n3)
         Fpcase.builder(n1) * Fpcase.builder(n2) == Fpcase.builder(n1 * n2)
-      }
     }
   }
 
@@ -58,10 +56,9 @@ object CheckFp extends Properties("Fp") {
 
   property("inverse") = forAll (myGen2) { (n:(Int,Int)) =>
     n match {
-      case (n1, n2) => {
+      case (n1, n2) =>
         val Fpcase = Fp(n2)
         Fpcase.builder(n1) * Fpcase.builder(n1).inverse == Fpcase.one
-      }
     }
   }
 
@@ -72,14 +69,13 @@ object CheckFp extends Properties("Fp") {
 
   property("GCD") = forAll (myGen) { (n: (Int, Int, Int)) =>
     n match {
-      case (n1, n2, n3) => {
+      case (n1, n2, n3) =>
         val Fpcase = Fp(n3)
         val a = Fpcase.builder(n1)
         val b = Fpcase.builder(n2)
         val d = Fpcase.gcd(a, b)
         val e = Fpcase.gcd(b, a)
         d == e
-      }
     }
   }
 }

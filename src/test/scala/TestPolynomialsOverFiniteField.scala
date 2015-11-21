@@ -1,4 +1,4 @@
-package algebra
+import algebra._
 
 import Utils._
 
@@ -63,7 +63,7 @@ object TestPolynomialsOverFiniteField extends App {
     3 -> aPoly,
     2 -> aPoly,
     1 -> aPoly,
-    0 -> aPoly).asInstanceOf[GFdeX.T1]
+    0 -> aPoly)
   println("7")
 
   val map2 = Map(
@@ -71,7 +71,7 @@ object TestPolynomialsOverFiniteField extends App {
     3 -> bPoly,
     2 -> bPoly,
     1 -> bPoly,
-    0 -> bPoly).asInstanceOf[GFdeX.T1]
+    0 -> bPoly)
   println("8")
 
   val pol1 = GFdeX.builder(map1)

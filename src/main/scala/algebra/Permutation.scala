@@ -102,12 +102,12 @@ case class Permutation(struc: Set[Cycle]) {
     case (Permutation.one, Permutation.one) => Permutation.one
     case (x, Permutation.one) => x
     case (Permutation.one, x) => x
-    case (_, _) => {
+    case (_, _) =>
 
       val izda: List[Cycle] = this.strucOK
       val dcha: List[Cycle] = other.strucOK
       val tmp1: List[Cycle] = izda ++ dcha
-      val seMueven: List[Int] = tmp1.map(x => x.ciclo).flatten.distinct.sorted
+      val seMueven: List[Int] = tmp1.flatMap(x => x.ciclo).distinct.sorted
       val mapaProducto: Map[Int, Int] =
         seMueven.foldRight[Map[Int, Int]](Map[Int, Int]())((i, mapa) =>
           mapa ++ Map(i -> this.toMap.getOrElse(other.toMap.getOrElse(i, i), other.toMap.getOrElse(i, i))))
@@ -127,7 +127,7 @@ case class Permutation(struc: Set[Cycle]) {
           ciclos
         } else {
           val cicloSiguiente = concatenar(mapa, List(quedan.head))
-          val resultado1 = extinguir(mapa, quedan diff ciclos.flatten, ciclos ++ List(cicloSiguiente)).toSet.toList
+          val resultado1 = extinguir(mapa, quedan diff ciclos.flatten, ciclos ++ List(cicloSiguiente)).distinct
           resultado1
         }
       }
@@ -136,8 +136,6 @@ case class Permutation(struc: Set[Cycle]) {
       val resultado1 = extinguir(mapaProducto, seMueven, List())
       val resultado2 = resultado1.map(x => Cycle(x)).toSet
       Permutation(resultado2)
-
-    }
   }
 
   // Redefinimos equals y hashCode

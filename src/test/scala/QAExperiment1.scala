@@ -1,4 +1,4 @@
-package algebra
+import algebra._
 
 object QAExperiment1 extends App {
 

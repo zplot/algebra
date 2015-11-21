@@ -31,7 +31,7 @@ object ProbamosGit {
 
   def prime0(n: Int) = n match {
     case 1 => false
-    case n => ld(n) == n
+    case x => ld(x) == x
   }
 
   // Power of integers TODO Usar la técnica del Cohen de asociar

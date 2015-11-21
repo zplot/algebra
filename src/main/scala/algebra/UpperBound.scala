@@ -1,3 +1,5 @@
+package algebra // TODO
+
 trait Similar {
   def isSimilar(x: Any): Boolean
 }

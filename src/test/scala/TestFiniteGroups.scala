@@ -1,4 +1,4 @@
-package algebra
+import algebra._
 
 object TestFiniteGroups extends App {
 

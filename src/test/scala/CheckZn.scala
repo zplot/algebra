@@ -13,10 +13,9 @@ object CheckZn extends Properties("Zn") {
 
   property("add") = forAll (myGen) { (n:(Int,Int,Int)) =>
     n match {
-      case (n1, n2, n3) => {
+      case (n1, n2, n3) =>
         val Zcase = Zn(n3)
         Zcase.builder(n1) + Zcase.builder(n2) == Zcase.builder(n1 + n2)
-      }
     }
   }
 
@@ -29,19 +28,17 @@ object CheckZn extends Properties("Zn") {
 
   property("subtract") = forAll (myGen) { (n:(Int,Int,Int)) =>
     n match {
-      case (n1, n2, n3) => {
+      case (n1, n2, n3) =>
         val Zcase = Zn(n3)
         Zcase.builder(n1) - Zcase.builder(n2) == Zcase.builder(n1 - n2)
-      }
     }
   }
 
   property("multiply") = forAll (myGen) { (n:(Int,Int,Int)) =>
     n match {
-      case (n1, n2, n3) => {
+      case (n1, n2, n3) =>
         val Zcase = Zn(n3)
         Zcase.builder(n1) * Zcase.builder(n2) == Zcase.builder(n1 * n2)
-      }
     }
   }
 

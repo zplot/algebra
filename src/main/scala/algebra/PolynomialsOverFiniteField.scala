@@ -180,7 +180,7 @@ class PolynomialsOverFiniteField private(val field: FiniteField)  {
 
     def multiply(other: T2): T2 = { // TODO
     val step1 = for (i <- this.mapa.toList; j <- other.mapa.toList) yield (i._1 + j._1, i._2 * j._2)
-      val exponents = step1.map(x => x._1).toSet.toList
+      val exponents = step1.map(x => x._1).distinct
       val step2 = for (i <- exponents) yield step1.filter(x => x._1 == i)
 
       def sumListInRing(list1: List[field.T2]): field.T2 = list1 match {
@@ -292,7 +292,7 @@ class PolynomialsOverFiniteField private(val field: FiniteField)  {
 
       val cond2: Boolean = {
         val factores = factors(n)
-        val factors2 = factores.take(factores.length - 1).drop(1)
+        val factors2 = factores.slice(1, factores.length - 1)
         val tmp1 = for(q <- factors2) yield {
           val exp1 = n/q
           val tmp2 = exp(x, exp1)
@@ -301,7 +301,7 @@ class PolynomialsOverFiniteField private(val field: FiniteField)  {
           val tmp5 = tmp4 == one
           tmp5
         }
-        tmp1.forall(x => x == true)
+        tmp1.forall(x => x)
       }
 
       cond1 && cond2

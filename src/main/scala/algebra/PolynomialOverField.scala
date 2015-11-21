@@ -132,7 +132,7 @@ class PolynomialOverField private(val field: Field)  {
 
     def multiply(other: Polynomial): Polynomial = { // TODO
     val step1 = for (i <- this.map.toList; j <- other.map.toList) yield (i._1 + j._1, i._2 * j._2)
-      val exponents = step1.map(x => x._1).toSet.toList
+      val exponents = step1.map(x => x._1).distinct
       val step2 = for (i <- exponents) yield step1.filter(x => x._1 == i)
 
       def sumListInRing(list1: List[field.T2]): field.T2 = list1 match {
