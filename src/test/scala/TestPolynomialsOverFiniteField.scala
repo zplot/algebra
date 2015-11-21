@@ -28,6 +28,7 @@ object TestPolynomialsOverFiniteField extends App {
 
 
   def cons1(x: Int) = GFdeX.field.baseField.builder(x)
+  println("1")
 
   val aMap = Map(
 
@@ -35,6 +36,7 @@ object TestPolynomialsOverFiniteField extends App {
     2 -> cons1(0),
     1 -> cons1(1),
     0 -> cons1(2)).asInstanceOf[GFdeX.field.polyRing.T1]
+  println("2")
 
   val bMap = Map(
 
@@ -42,13 +44,18 @@ object TestPolynomialsOverFiniteField extends App {
     2 -> cons1(1),
     1 -> cons1(1),
     0 -> cons1(2)).asInstanceOf[GFdeX.field.polyRing.T1]
+  println("3")
 
-  val aPoly = GFdeX.field.polyRing.builder(aMap)
-  val bPoly = GFdeX.field.polyRing.builder(bMap)
+  //val aPoly = GFdeX.field.polyRing.builder(aMap)
+  println("4")
+  //val bPoly = GFdeX.field.polyRing.builder(bMap)
+  println("5")
 
   def constructor2(Map: GFdeX.field.polyRing.T1) = GFdeX.field.builder(GFdeX.field.polyRing.builder(Map))
+  println("6")
 
-
+  val aPoly = constructor2(aMap)
+  val bPoly = constructor2(bMap)
 
 
   val map1 = Map(
@@ -57,6 +64,7 @@ object TestPolynomialsOverFiniteField extends App {
     2 -> aPoly,
     1 -> aPoly,
     0 -> aPoly).asInstanceOf[GFdeX.T1]
+  println("7")
 
   val map2 = Map(
 
@@ -64,13 +72,17 @@ object TestPolynomialsOverFiniteField extends App {
     2 -> bPoly,
     1 -> bPoly,
     0 -> bPoly).asInstanceOf[GFdeX.T1]
+  println("8")
 
   val pol1 = GFdeX.builder(map1)
+  println("9")
   val pol2 = GFdeX.builder(map2)
+  println("10")
 
   def cons2(Map: GFdeX.field.polyRing.T1) = GFdeX.field.builder(GFdeX.field.polyRing.builder(Map)).asInstanceOf[GFdeX.field.polyRing.T1]
-
+  println("11")
   def cons3(Map: GFdeX.T1) = GFdeX.builder(Map)
+  println("12")
 
 
 

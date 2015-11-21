@@ -206,8 +206,11 @@ class PolynomialsOverFiniteField private(val field: FiniteField)  {
     def lc = if (degree == -999999) field.zero else {
       val list = mapa.toList
       val deg = mapa.keySet.max
-      val tmp = list.filter(x => x._1 == deg)
-      tmp.head._2
+      val tmp1 = list.filter(x => x._1 == deg)
+      val tmp2 = tmp1.head
+      val tmp3 = tmp2._2
+
+      tmp3
     }
 
     val isMonic: Boolean = lc == field.one
