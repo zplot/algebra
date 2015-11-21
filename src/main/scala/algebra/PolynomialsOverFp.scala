@@ -70,7 +70,7 @@ class PolynomialsOverFp private(val field: Fp)  {
 
     def fromListToPolynomial(list: List[Int]) = {
       val listOfElements = list map ( x => field.builder(x))
-      val oneTwoThree = (0 to list.length - 1).toList.reverse
+      val oneTwoThree = list.indices.toList.reverse
       val quasiMap = oneTwoThree zip listOfElements
       val map = quasiMap.toList.toMap
       builder(map)

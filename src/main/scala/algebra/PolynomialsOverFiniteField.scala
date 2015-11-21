@@ -59,7 +59,7 @@ class PolynomialsOverFiniteField private(val field: FiniteField)  {
 
     def fromListToT2(list: List[Int]) = {
       val listOfElements = list map ( x => field.baseField.builder(x))
-      val oneTwoThree = (0 to list.length - 1).toList.reverse
+      val oneTwoThree = list.indices.toList.reverse
       val quasiMap = oneTwoThree zip listOfElements
       val map = quasiMap.toList.toMap.asInstanceOf[T1]
       builder(map)
