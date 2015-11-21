@@ -13,6 +13,6 @@ Polynomial rings
 Number theory
 Group Rings
 
-I would be thankful for any recommendations and comments that could help to improve the code and the math after it.
+I would be thankful for any recommendations and comments that could help to improve the code & math.
 
-Thank you to all of you for your comments and proposals.
+Comments and improvement proposals are welcome.
