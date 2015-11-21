@@ -84,6 +84,21 @@ object TestPolynomialsOverFiniteField extends App {
   def cons3(Map: GFdeX.T1) = GFdeX.builder(Map)
   println("12")
 
+  println("Ahora probamos el nuevo builder")
+
+  val mapa1 = Map(
+
+    3 -> cons1(1),
+    2 -> cons1(0),
+    1 -> cons1(1),
+    0 -> cons1(2)).asInstanceOf[GFdeX.field.polyRing.T1]
+
+  val elemento = GFdeX.builderFromMap(mapa1)
+  println("elemento = " + elemento)
+
+
+
+
 
 
 

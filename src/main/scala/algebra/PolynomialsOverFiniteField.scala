@@ -2,6 +2,7 @@ package algebra
 import  Utils._
 
 
+
 /**
   * builder of a T2 Ring over finite field
   */
@@ -10,6 +11,7 @@ object PolynomialsOverFiniteField {
   def apply(field: FiniteField): PolynomialsOverFiniteField = {
     new PolynomialsOverFiniteField(field)
   }
+
 }
 
 
@@ -17,6 +19,8 @@ object PolynomialsOverFiniteField {
   * builder of a T2 Ring over field
   */
 class PolynomialsOverFiniteField private(val field: FiniteField)  {
+
+  def builderFromMap(map: field.polyRing.T1): field.FiniteFieldElement = field.builder(field.polyRing.builder(map))
 
 
   type T1 = Map[Int, field.T2]
@@ -134,6 +138,11 @@ class PolynomialsOverFiniteField private(val field: FiniteField)  {
 
     def apply(map: T1): T2 = {
       new Polynomial(map)
+    }
+
+    def buildFromMap(map: field.polyRing.T1): T2 = {
+      val polyOverFp = field.polyRing.builder(map).asInstanceOf[T1]
+      new Polynomial(polyOverFp)
     }
 
     // Creo que esto es para comparar monomios de acuerdo con el grado
