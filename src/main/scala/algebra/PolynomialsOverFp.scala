@@ -141,7 +141,6 @@ class PolynomialsOverFp private(val field: Fp)  {
   }
 
 
-
   /**
    * builder of a Polynomial belonging to the polynomial ring
    */
