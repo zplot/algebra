@@ -1,16 +1,17 @@
 package algebra
 import  Utils._
 
-// TODO este paquete maneja cuerpos finitos de cardinal p^q
+// TODO Sólo permitir p primos
 
 case class FiniteField(p: Int, w: Int) extends Field {
 
 
-  val identity = "Fq(" + Utils.power(p,w).toString + ")"
+
   val numElements: Int = Utils.power(p,w)
   val baseField: Fp = Fp(p)
   val polyRing: PolynomialsOverFp = PolynomialsOverFp(baseField)
   val h = polyRing.findIrredPolProb(w)
+  val identity = builder(polyRing.one)
 
   type T1 = polyRing.T2
   type T2 = FiniteFieldElement
@@ -34,12 +35,12 @@ case class FiniteField(p: Int, w: Int) extends Field {
     FiniteFieldElement(polynomialInPolyRing)
   }
 
-  val structureId: String = "FiniteField" + p.toString
+  val structureId: String = "Fq(" + Utils.power(p,w).toString + ")"
   val finite: Boolean = true
   val zero = builder(polyRing.zero)
-  val one = builder(polyRing.one)
+  val one = identity
 
-  override def toString = identity
+  override def toString = structureId
 
 
   object FiniteFieldElement {
@@ -82,8 +83,7 @@ case class FiniteField(p: Int, w: Int) extends Field {
       }
     }
 
-    //override def toString = (f, h).toString()
-    override def toString = "(" + "(" + f.toString + ") mod h)" // TODO Print h at the end
+    override def toString = "(" + "(" + f.toString + ") mod h)"
 
     override def equals(other: Any): Boolean = {
       val that = other.asInstanceOf[FiniteFieldElement]

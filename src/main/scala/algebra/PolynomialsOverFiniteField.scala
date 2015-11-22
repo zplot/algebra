@@ -254,9 +254,7 @@ class PolynomialsOverFiniteField private(val field: FiniteField)  {
       def s(r: T2): T2 = builder(Map( r.degree - d -> r.lc.divide(b.lc)))
 
       def loop(q: T2, r: T2): (T2, T2) = {
-        println(r)
         val elputodegree = r.degree
-        println(elputodegree)
         if (r.degree < d) (q, r) else {
           loop(q + s(r), r - (s(r) * b))
         }
@@ -339,7 +337,11 @@ class PolynomialsOverFiniteField private(val field: FiniteField)  {
         case x :: xs if x._2 == field.one => "x" + x._1 + " + " + printPol(xs)
         case x :: xs => x._2 + "x" + x._1 + " + " + printPol(xs)
       }
-      if (this == zero) "0" else printPol(this.mapa.toList.sortWith(Polynomial.comp)).dropRight(2)
+      if (this == zero) "0" else {
+        val text = printPol(this.mapa.toList.sortWith(Polynomial.comp)).dropRight(2)
+        val finalTex = text + "where h = " + field.h
+        finalTex
+      }
     }
 
     override def equals(other: Any): Boolean = {
