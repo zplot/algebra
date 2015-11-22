@@ -1,13 +1,12 @@
 package algebra
-import  Utils._
+
+import Utils._
 
 // TODO Sólo permitir p primos
 
 case class FiniteField(p: Int, w: Int) extends Field {
 
-
-
-  val numElements: Int = Utils.power(p,w)
+  val numElements: Int = Utils.power(p, w)
   val baseField: Fp = Fp(p)
   val polyRing: PolynomialsOverFp = PolynomialsOverFp(baseField)
   val h = polyRing.findIrredPolProb(w)
@@ -15,7 +14,6 @@ case class FiniteField(p: Int, w: Int) extends Field {
 
   type T1 = polyRing.T2
   type T2 = FiniteFieldElement
-
 
 
   // takes a polynomial in polyRing and builds a FiniteFieldElement
@@ -35,7 +33,7 @@ case class FiniteField(p: Int, w: Int) extends Field {
     FiniteFieldElement(polynomialInPolyRing)
   }
 
-  val structureId: String = "Fq(" + Utils.power(p,w).toString + ")"
+  val structureId: String = "Fq(" + Utils.power(p, w).toString + ")"
   val finite: Boolean = true
   val zero = builder(polyRing.zero)
   val one = identity
@@ -49,7 +47,8 @@ case class FiniteField(p: Int, w: Int) extends Field {
       new FiniteFieldElement(g)
     }
   }
-  class FiniteFieldElement private (val f: T1)  extends FieldElement {
+
+  class FiniteFieldElement private(val f: T1) extends FieldElement {
 
     val fatherFiniteField = FiniteField.this
     val elementId = f.toString
@@ -62,8 +61,11 @@ case class FiniteField(p: Int, w: Int) extends Field {
     }
 
     def add(other: T2) = builder((f + other.f).mod(h))
+
     def minus(other: T2) = builder((f - other.f).mod(h))
-    def negate: T2 = builder(( h - f).mod(h))
+
+    def negate: T2 = builder((h - f).mod(h))
+
     def multiply(other: T2) = builder((f * other.f).mod(h))
 
     def power(p: Int): T2 = p match {
@@ -91,4 +93,5 @@ case class FiniteField(p: Int, w: Int) extends Field {
       else this.f == that.f
     }
   }
+
 }

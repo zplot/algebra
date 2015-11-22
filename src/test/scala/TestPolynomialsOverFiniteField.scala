@@ -7,7 +7,7 @@ object TestPolynomialsOverFiniteField extends App {
 
   println("Empezamos Polynomials Over a Field")
 
-  val cuerpo = FiniteField(5,2)
+  val cuerpo = FiniteField(5, 2)
 
   val GFdeX = PolynomialsOverFiniteField(cuerpo)
 
@@ -25,9 +25,8 @@ object TestPolynomialsOverFiniteField extends App {
   // pol2 es un polinomio de los que buscamos
 
 
-
-
   def cons1(x: Int) = GFdeX.field.baseField.builder(x)
+
   println("1")
 
   val aMap = Map(
@@ -52,6 +51,7 @@ object TestPolynomialsOverFiniteField extends App {
   println("5")
 
   def constructor2(Map: GFdeX.field.polyRing.T1) = GFdeX.field.builder(GFdeX.field.polyRing.builder(Map))
+
   println("6")
 
   val aPoly = constructor2(aMap)
@@ -94,11 +94,6 @@ object TestPolynomialsOverFiniteField extends App {
   println("elemento = " + elemento)
 
 
-
-
-
-
-
   val a = pol1
   val b = pol2
 
@@ -133,9 +128,6 @@ object TestPolynomialsOverFiniteField extends App {
 
   println(pol1.isIrreducible)
   println(pol2.isIrreducible)
-
-
-
 
 
 }
