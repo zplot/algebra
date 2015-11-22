@@ -8,7 +8,7 @@ object TestPolynomialsOverFp extends App {
 
   println("Empezamos Polynomials Over a Field")
 
-  val cuerpo = Fp(3)
+  val cuerpo = Fp(5)
 /*  val a = cuerpo.builder(1520)
   val b = cuerpo.builder(7870)*/
 

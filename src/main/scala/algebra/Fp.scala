@@ -1,6 +1,9 @@
 package algebra
 
+import algebra.Utils._
+
 case class Fp(p: Int) extends Field {
+  require(isPrime(p), p + " is not a prime number")
 
   type T1 = Int
   type T2 = FpElement

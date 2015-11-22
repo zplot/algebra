@@ -2,9 +2,12 @@ package algebra
 
 import Utils._
 
-// TODO Sólo permitir p primos
+
 
 case class FiniteField(p: Int, w: Int) extends Field {
+  require(isPrime(p), p + " is not a prime number")
+
+
 
   val numElements: Int = Utils.power(p, w)
   val baseField: Fp = Fp(p)

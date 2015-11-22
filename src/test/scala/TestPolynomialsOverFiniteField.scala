@@ -7,7 +7,7 @@ object TestPolynomialsOverFiniteField extends App {
 
   println("Empezamos Polynomials Over a Field")
 
-  val cuerpo = FiniteField(5, 2)
+  val cuerpo = FiniteField(7, 4)
 
   val GFdeX = PolynomialsOverFiniteField(cuerpo)
 

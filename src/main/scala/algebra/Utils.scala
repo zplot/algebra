@@ -86,5 +86,13 @@ object Utils {
     val unflattened = for (i <- uniq) yield (i, fact.count(_ == i)) :: emptyList
     unflattened.flatten
   }
+
+  /** Return the divisors of n. */
+  def divisors(n: Int): List[Int] =
+    for (i <- List.range(1, n+1) if n % i == 0) yield i
+
+  /** Is 'n' a prime number? */
+  def isPrime(n: Int) = divisors(n).length == 2
+
 }
 
