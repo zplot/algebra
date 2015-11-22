@@ -104,7 +104,7 @@ class PolynomialsOverFiniteField private(val field: FiniteField)  {
         loop(rPrime, sPrime, tPrime, rPrimePrime, s - sPrime * q, t - tPrime * q)
       } else {
         val c = r.lc
-        val (d, tmp2) = r / c
+        val (d, _) = r / c
         val sNew = s / c
         val tNew = t / c
         (d, sNew._1, tNew._1, zero, zero, zero)
@@ -137,7 +137,19 @@ class PolynomialsOverFiniteField private(val field: FiniteField)  {
   object Polynomial {
 
     def apply(map: T1): T2 = {
-      new Polynomial(map)
+
+      val normalMap: T1 = {
+        val theMapList = map.toList
+        def newMapList(oldMapList: List[(Int, field.T2)]): List[(Int, field.T2)] = oldMapList match {
+          case Nil => Nil
+          case ((x1, field.zero) :: xs) => newMapList(xs)
+          case ((x1, x2) :: xs)  => (x1, x2) :: newMapList(xs)
+        }
+        val theNewMapList = newMapList(theMapList)
+        val theNewMap = theNewMapList.toMap
+        theNewMap
+      }
+      new Polynomial(normalMap)
     }
 
     def buildFromMap(map: field.polyRing.T1): T2 = {
@@ -172,11 +184,12 @@ class PolynomialsOverFiniteField private(val field: FiniteField)  {
       val cond1 = this.mapa == Map(0 -> field.zero)
       val cond2 = this.mapa == Map[Int, field.T2]()
       val cond3 = areAllCoeffsZero
+      val elgradoes = if (cond1 || cond2 || cond3)  -1 else exponents.max // TODO quitar esto
       if (cond1 || cond2 || cond3)  -1 else exponents.max
     }
 
 
-    val lc = if (degree == -999999) field.zero else {
+    val lc = if (degree == -1) field.zero else {
       val list = mapa.toList
       val deg = mapa.keySet.max
       val tmp1 = list.filter(x => x._1 == deg)
@@ -241,6 +254,9 @@ class PolynomialsOverFiniteField private(val field: FiniteField)  {
       def s(r: T2): T2 = builder(Map( r.degree - d -> r.lc.divide(b.lc)))
 
       def loop(q: T2, r: T2): (T2, T2) = {
+        println(r)
+        val elputodegree = r.degree
+        println(elputodegree)
         if (r.degree < d) (q, r) else {
           loop(q + s(r), r - (s(r) * b))
         }
