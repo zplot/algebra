@@ -205,7 +205,7 @@ class PolynomialsOverFiniteField private(val field: FiniteField)  {
     }
 
 
-    def lc = if (degree == -999999) field.zero else {
+    val lc = if (degree == -999999) field.zero else {
       val list = mapa.toList
       val deg = mapa.keySet.max
       val tmp1 = list.filter(x => x._1 == deg)
@@ -218,7 +218,7 @@ class PolynomialsOverFiniteField private(val field: FiniteField)  {
     val isMonic: Boolean = lc == field.one
 
     // Ver https://en.wikipedia.org/wiki/T2_greatest_common_divisor#Euclid.27s_algorithm
-    def divide(other: T2): (T2, T2) = {
+    def divide(other: T2): (T2, T2) = { // TODO Revisar esto porque parece que no va bien
 
       val a: T2 = this
       val b: T2 = other

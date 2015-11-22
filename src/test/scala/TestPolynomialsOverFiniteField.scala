@@ -32,8 +32,8 @@ object TestPolynomialsOverFiniteField extends App {
 
   val aMap = Map(
 
-    3 -> cons1(1),
-    2 -> cons1(0),
+    3 -> cons1(0),
+    2 -> cons1(1),
     1 -> cons1(1),
     0 -> cons1(2)).asInstanceOf[GFdeX.field.polyRing.T1]
   println("2")
@@ -60,7 +60,6 @@ object TestPolynomialsOverFiniteField extends App {
 
   val map1 = Map(
 
-    3 -> aPoly,
     2 -> aPoly,
     1 -> aPoly,
     0 -> aPoly)
@@ -68,8 +67,6 @@ object TestPolynomialsOverFiniteField extends App {
 
   val map2 = Map(
 
-    3 -> bPoly,
-    2 -> bPoly,
     1 -> bPoly,
     0 -> bPoly)
   println("8")
@@ -108,7 +105,7 @@ object TestPolynomialsOverFiniteField extends App {
   println("Ahora empieza GCD")
   println(a)
   println(b)
-  println(GFdeX.gcdExtended(a, b))
+  //println(GFdeX.gcdExtended(a, b))
   println(GFdeX.gcd(a, b))
 
   println("Ahora empieza exponentes")
