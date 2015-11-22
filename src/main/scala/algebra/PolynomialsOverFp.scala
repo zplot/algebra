@@ -328,7 +328,7 @@ class PolynomialsOverFp private(val field: Fp)  {
         case x :: xs => x._2 + "x" + x._1 + " + " + printPol(xs)
         //"hola hola 189"
       }
-      if (this == zeroPolynomial) "0" else printPol(this.map.toList.sortWith(Polynomial.comp)).dropRight(2)
+      if (this == zeroPolynomial) "0" else printPol(this.map.toList.sortWith(Polynomial.comp)).dropRight(3)
       //map.toString()
     }
 

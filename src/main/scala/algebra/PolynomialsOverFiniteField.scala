@@ -204,13 +204,6 @@ class PolynomialsOverFiniteField private(val field: FiniteField)  {
       if (this.mapa == Map(0 -> field.zero) || this.mapa == Map[Int, field.T2]()) -999999 else step1.max
     }
 
-/*    def conversor(f: PolynomialsOverFp#Polynomial): field.FiniteFieldElement = {
-      val mapa1 = f.map
-
-
-
-
-    }*/
 
     def lc = if (degree == -999999) field.zero else {
       val list = mapa.toList
