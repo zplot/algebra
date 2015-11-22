@@ -93,13 +93,13 @@ class PolynomialsOverFiniteField private(val field: FiniteField)  {
     val r: T2 = g
     val rPrime: T2 = h
     val s: T2 = builder(Map(0 -> field.one))
-    val sPrime: T2 = zeroT2
-    val t: T2 = zeroT2
+    val sPrime: T2 = zero
+    val t: T2 = zero
     val tPrime: T2 = builder(Map(0 -> field.one))
 
     def loop(r: T2, s: T2, t: T2, rPrime: T2, sPrime: T2,tPrime: T2): (T2, T2, T2,T2, T2, T2) = {
 
-      if (rPrime != zeroT2) {
+      if (rPrime != zero) {
         val (q, rPrimePrime) = r / rPrime
         loop(rPrime, sPrime, tPrime, rPrimePrime, s - sPrime * q, t - tPrime * q)
       } else {
@@ -107,7 +107,7 @@ class PolynomialsOverFiniteField private(val field: FiniteField)  {
         val (d, tmp2) = r / c
         val sNew = s / c
         val tNew = t / c
-        (d, sNew._1, tNew._1, zeroT2, zeroT2, zeroT2)
+        (d, sNew._1, tNew._1, zero, zero, zero)
       }
     }
     val (gcdFinal,sFinal,tFinal, dummy1, dummy2, dummy3) = loop(r, s, t, rPrime, sPrime, tPrime)
@@ -129,7 +129,7 @@ class PolynomialsOverFiniteField private(val field: FiniteField)  {
     loop (h, exponent, h)
   }
 
-  val zeroT2: T2 = builder(Map(0 -> field.zero))
+  val zero: T2 = builder(Map(0 -> field.zero))
   val x = builder(Map(1 -> field.one))
   val one = builder(Map(0 -> field.one))
 
@@ -154,6 +154,39 @@ class PolynomialsOverFiniteField private(val field: FiniteField)  {
   class Polynomial (val mapa: T1)  {
 
     val fatherPolynomialOverFiniteField = PolynomialsOverFiniteField.this
+
+    val isZero = {
+      val map = this.mapa
+      val mapKeySet = map.keySet
+      val mapValueSet = map.values.toSet
+      val c0: Boolean = this == zero
+      val c1: Boolean = mapKeySet == Set(0)
+      val c2: Boolean = mapValueSet == Set(field.zero)
+      c0 || (c1 && c2)
+    }
+
+    val degree: Int = {
+      val exponents = mapa.keySet
+      val coefficients = mapa.values.toSet
+      val areAllCoeffsZero: Boolean = coefficients.toList.forall(x => x.isZero)
+      val cond1 = this.mapa == Map(0 -> field.zero)
+      val cond2 = this.mapa == Map[Int, field.T2]()
+      val cond3 = areAllCoeffsZero
+      if (cond1 || cond2 || cond3)  -1 else exponents.max
+    }
+
+
+    val lc = if (degree == -999999) field.zero else {
+      val list = mapa.toList
+      val deg = mapa.keySet.max
+      val tmp1 = list.filter(x => x._1 == deg)
+      val tmp2 = tmp1.head
+      val tmp3 = tmp2._2
+
+      tmp3
+    }
+
+    val isMonic: Boolean = lc == field.one
 
     def add(other: T2) = {
 
@@ -198,25 +231,6 @@ class PolynomialsOverFiniteField private(val field: FiniteField)  {
 
     }
 
-    val degree: Int = {
-      //val step1 =  map.keySet
-      val step1 = mapa.keySet
-      if (this.mapa == Map(0 -> field.zero) || this.mapa == Map[Int, field.T2]()) -999999 else step1.max
-    }
-
-
-    val lc = if (degree == -999999) field.zero else {
-      val list = mapa.toList
-      val deg = mapa.keySet.max
-      val tmp1 = list.filter(x => x._1 == deg)
-      val tmp2 = tmp1.head
-      val tmp3 = tmp2._2
-
-      tmp3
-    }
-
-    val isMonic: Boolean = lc == field.one
-
     // Ver https://en.wikipedia.org/wiki/T2_greatest_common_divisor#Euclid.27s_algorithm
     def divide(other: T2): (T2, T2) = { // TODO Revisar esto porque parece que no va bien
 
@@ -231,7 +245,7 @@ class PolynomialsOverFiniteField private(val field: FiniteField)  {
           loop(q + s(r), r - (s(r) * b))
         }
       }
-      loop(zeroT2, a)
+      loop(zero, a)
     }
 
     def divide(other: field.T2): (T2, T2) = {
@@ -280,7 +294,7 @@ class PolynomialsOverFiniteField private(val field: FiniteField)  {
         val xToPn = exp(x, exponent)
         //xToPn.mod(this) == x.mod(this)
         val xToPnMinusX = xToPn - x
-        xToPnMinusX.mod(this) == zeroT2
+        xToPnMinusX.mod(this) == zero
       }
 
       val cond2: Boolean = {
@@ -309,7 +323,7 @@ class PolynomialsOverFiniteField private(val field: FiniteField)  {
         case x :: xs if x._2 == field.one => "x" + x._1 + " + " + printPol(xs)
         case x :: xs => x._2 + "x" + x._1 + " + " + printPol(xs)
       }
-      if (this == zeroT2) "0" else printPol(this.mapa.toList.sortWith(Polynomial.comp)).dropRight(2)
+      if (this == zero) "0" else printPol(this.mapa.toList.sortWith(Polynomial.comp)).dropRight(2)
     }
 
     override def equals(other: Any): Boolean = {

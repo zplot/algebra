@@ -44,6 +44,7 @@ case class QuaternionAlgebra(ring: Ring) {
 
       val elementId = q.toString()
       val fatherQuaternionAlgebra = QuaternionAlgebra.this
+      val isZero = ???
 
       def add(other: Quaternion): Quaternion = {
         val comp1 = this.q._1 + other.q._1

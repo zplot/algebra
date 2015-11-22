@@ -51,8 +51,16 @@ class PolynomialOverRing private(val ring: Ring) extends Ring {
   class Polynomial private(val map: T1) extends RingElement{
 
     val fatherPolynomialOverRing = PolynomialOverRing.this
-
     val elementId = toString
+    val isZero = {
+      val map = this.map
+      val mapKeySet = map.keySet
+      val mapValueSet = map.values.toSet
+      val c0: Boolean = this == zero
+      val c1: Boolean = mapKeySet == Set(0)
+      val c2: Boolean = mapValueSet == Set(ring.zero)
+      c0 || (c1 && c2)
+    }
 
     def negate = this.multiply(ring.one.negate)
 

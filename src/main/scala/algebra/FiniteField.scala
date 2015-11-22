@@ -36,7 +36,7 @@ case class FiniteField(p: Int, w: Int) extends Field {
 
   val structureId: String = "FiniteField" + p.toString
   val finite: Boolean = true
-  val zero = builder(polyRing.zeroPolynomial)
+  val zero = builder(polyRing.zero)
   val one = builder(polyRing.one)
 
   override def toString = identity
@@ -52,6 +52,13 @@ case class FiniteField(p: Int, w: Int) extends Field {
 
     val fatherFiniteField = FiniteField.this
     val elementId = f.toString
+    val exponents = f.map.keySet
+    val coefficients = f.map.values.toSet
+    val isZero: Boolean = {
+      val cond0: Boolean = this == zero
+      val cond1: Boolean = coefficients.toList.forall(x => x.isZero)
+      cond0 || cond1
+    }
 
     def add(other: T2) = builder((f + other.f).mod(h))
     def minus(other: T2) = builder((f - other.f).mod(h))

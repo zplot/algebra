@@ -27,6 +27,7 @@ case class QuadraticField(m: Int) extends Ring {
 
     val elementId = k.toString()
     val fatherQuadraticField = QuadraticField.this
+    val isZero = k == (0,0)
 
     def add(other: QuadraticFieldElement) = QuadraticFieldElement(k._1 + other.k._1, k._2 + other.k._2)
     def minus(other: QuadraticFieldElement) = QuadraticFieldElement(-k._1, -k._2)

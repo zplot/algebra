@@ -104,13 +104,13 @@ class PolynomialsOverFp private(val field: Fp)  {
     val r: T2 = g
     val rPrime: T2 = h
     val s: T2 = builder(Map(0 -> field.one))
-    val sPrime: T2 = zeroPolynomial
-    val t: T2 = zeroPolynomial
+    val sPrime: T2 = zero
+    val t: T2 = zero
     val tPrime: T2 = builder(Map(0 -> field.one))
 
     def loop(r: T2, s: T2, t: T2, rPrime: T2, sPrime: T2,tPrime: T2): (T2, T2, T2,T2, T2, T2) = {
 
-      if (rPrime != zeroPolynomial) {
+      if (rPrime != zero) {
         val (q, rPrimePrime) = r / rPrime
         loop(rPrime, sPrime, tPrime, rPrimePrime, s - sPrime * q, t - tPrime * q)
       } else {
@@ -118,7 +118,7 @@ class PolynomialsOverFp private(val field: Fp)  {
         val (d, tmp2) = r / c
         val sNew = s / c
         val tNew = t / c
-        (d, sNew._1, tNew._1, zeroPolynomial, zeroPolynomial, zeroPolynomial)
+        (d, sNew._1, tNew._1, zero, zero, zero)
       }
     }
     val (gcdFinal,sFinal,tFinal, dummy1, dummy2, dummy3) = loop(r, s, t, rPrime, sPrime, tPrime)
@@ -170,7 +170,7 @@ class PolynomialsOverFp private(val field: Fp)  {
 
   }
 
-  val zeroPolynomial: T2 = builder(Map(0 -> field.zero))
+  val zero: T2 = builder(Map(0 -> field.zero))
 
   val x = builder(Map(1 -> field.one))
 
@@ -223,14 +223,16 @@ class PolynomialsOverFp private(val field: Fp)  {
 
     }
 
+
+
     val degree: Int = {
       //val step1 =  map.keySet
       val step1 = map.keySet
-      if (this.map == Map(0 -> field.zero) || this.map == Map[Int, field.T2]()) -999999 else step1.max
+      if (this.map == Map(0 -> field.zero) || this.map == Map[Int, field.T2]()) -1 else step1.max
     }
 
     val lc: field.T2 = {
-      if (degree == -999999) field.zero else this.map(degree)
+      if (degree == -1) field.zero else this.map(degree)
     }
 
     val isMonic: Boolean = lc == field.one
@@ -249,7 +251,7 @@ class PolynomialsOverFp private(val field: Fp)  {
           loop(q + s(r), r - (s(r) * b))
         }
       }
-      loop(zeroPolynomial, a)
+      loop(zero, a)
     }
 
     def divide(other: field.T2): (T2, T2) = {
@@ -298,7 +300,7 @@ class PolynomialsOverFp private(val field: Fp)  {
         val xToPn = exp(x, exponent)
         //xToPn.mod(this) == x.mod(this)
         val xToPnMinusX = xToPn - x
-        xToPnMinusX.mod(this) == zeroPolynomial
+        xToPnMinusX.mod(this) == zero
       }
 
       val cond2: Boolean = {
@@ -328,7 +330,7 @@ class PolynomialsOverFp private(val field: Fp)  {
         case x :: xs => x._2 + "x" + x._1 + " + " + printPol(xs)
         //"hola hola 189"
       }
-      if (this == zeroPolynomial) "0" else printPol(this.map.toList.sortWith(Polynomial.comp)).dropRight(3)
+      if (this == zero) "0" else printPol(this.map.toList.sortWith(Polynomial.comp)).dropRight(3)
       //map.toString()
     }
 

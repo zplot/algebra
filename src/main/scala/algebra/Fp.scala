@@ -12,6 +12,7 @@ case class Fp(p: Int) extends Field {
   val structureId: String = "Fp" + p.toString
   val finite: Boolean = true
   val zero = builder(0)
+
   override val one = builder(1)
   val minusOne = builder(p - 1)
 
@@ -31,6 +32,7 @@ case class Fp(p: Int) extends Field {
 
     val elementId = k.toString
     val fatherFp = Fp.this
+    val isZero = k == 0
 
     def add(other: FpElement) = builder((k + other.k) % p)
     def minus(other: FpElement) = builder((k - other.k) % p)

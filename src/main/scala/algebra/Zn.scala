@@ -27,7 +27,10 @@ case class Zn(n: Int) extends Ring {
 
 
   class IntModN private(val k: Int) extends RingElement {
+
     val elementId = k.toString
+    val isZero = k == 0
+
     def add(other: IntModN) = IntModN((k + other.k) % n)
     def minus(other: IntModN) = IntModN((k - other.k) % n)
     def multiply(other: IntModN) = IntModN((k * other.k) % n)

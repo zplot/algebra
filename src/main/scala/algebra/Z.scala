@@ -48,6 +48,7 @@ case object Z extends UFD {
   class ZInteger private(val k: T1) extends UFDElement {
 
     val elementId = k.toString
+    val isZero = k == 0
 
     def add(other: ZInteger) = ZInteger(k + other.k)
     def minus(other: ZInteger) = ZInteger(k - other.k)
