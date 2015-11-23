@@ -1,9 +1,9 @@
 import algebra._
 
-import Utils._
 
 
-object TestPolynomialOverFiniteField2 extends App {
+
+object TestPolynomialOverFiniteFieldDivision extends App {
 
   println("Empezamos Polynomials Over a Field 2")
 
