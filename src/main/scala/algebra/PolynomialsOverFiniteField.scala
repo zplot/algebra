@@ -18,7 +18,7 @@ object PolynomialsOverFiniteField {
 /**
   * builder of a T2 Ring over field
   */
-class PolynomialsOverFiniteField private(val field: FiniteField)  {
+class PolynomialsOverFiniteField private(val field: FiniteField) {
 
   def builderFromMap(map: field.polyRing.T1): field.FiniteFieldElement = field.builder(field.polyRing.builder(map))
 
@@ -244,7 +244,7 @@ class PolynomialsOverFiniteField private(val field: FiniteField)  {
 
     }
 
-    // Ver https://en.wikipedia.org/wiki/T2_greatest_common_divisor#Euclid.27s_algorithm
+    // Ver https://en.wikipedia.org/wiki/Polynomial_greatest_common_divisor#Euclidean_algorithm
     def divide(other: T2): (T2, T2) = { // TODO Revisar esto porque parece que no va bien
 
       val a: T2 = this
@@ -254,7 +254,6 @@ class PolynomialsOverFiniteField private(val field: FiniteField)  {
       def s(r: T2): T2 = builder(Map( r.degree - d -> r.lc.divide(b.lc)))
 
       def loop(q: T2, r: T2): (T2, T2) = {
-        val elputodegree = r.degree
         if (r.degree < d) (q, r) else {
           loop(q + s(r), r - (s(r) * b))
         }
