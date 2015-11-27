@@ -3,5 +3,7 @@ Fq where q = p^n
 Squarefree factorization of polynomials
 Polynomial factorization
 Ver qué pasa con PolynomialOverField. Se reforma?
+Conwat Polynomials con Slick
+Entrada de polinomios fácil
 
 Cuando haya un apply (en factory) poner private class
