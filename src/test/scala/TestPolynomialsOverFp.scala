@@ -8,7 +8,7 @@ object TestPolynomialsOverFp extends App {
 
   println("Empezamos Polynomials Over a Field")
 
-  val cuerpo = Fp(5)
+  val cuerpo = Fp(2)
 /*  val a = cuerpo.builder(1520)
   val b = cuerpo.builder(7870)*/
 
@@ -17,7 +17,7 @@ object TestPolynomialsOverFp extends App {
 
   val GFdeX = PolynomialsOverFp(cuerpo)
 
-  val prueba = GFdeX.field.builder(7)
+  val prueba = GFdeX.field.builder(3)
 
   def util(x: Int) = GFdeX.field.builder(x)
 /*
@@ -129,9 +129,42 @@ object TestPolynomialsOverFp extends App {
   println(fBis)
   println(f == fBis)
 
+  println()
+  println()
+  println("Nuevos polinomios")
+  println()
+
+  val GF = PolynomialsOverFp(Fp(11))
+
+  val b1 = GFdeX.Poly(0 -> util(1), 1 -> util(1))
+  val b2 = GFdeX.Poly(0 -> util(1))
+  import GFdeX._
+  val b3 = Poly(0 -> util(1), 1 -> util(1))
+  println(b1)
+  println(b2)
+  println(b3)
+
+  val cuerpo2 = Fp(11)
+
+  val GFdeX2 = PolynomialsOverFp(cuerpo2)
+
+  val prueba2 = GFdeX2.field.builder(3)
+
+  def util2(x: Int) = GFdeX2.field.builder(x)
+
+  val b4 = Poly(0 -> util(1), 1 -> util(1))
+  println(b4.PolynomialRing)
 
 
 
+
+
+
+
+  // val poly = "x4-x^3+3x^2-5x+4"
+  val poly = "x4-x3+3x2-5x+4"
+  println(poly)
+  val resultado = Utils.regexPoly(poly)
 
 
 

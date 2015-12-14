@@ -1,6 +1,8 @@
 package algebra
 
 
+
+
 object Utils {
 
   case class IntMap(map: Map[Int, Int])
@@ -93,6 +95,28 @@ object Utils {
 
   /** Is 'n' a prime number? */
   def isPrime(n: Int) = divisors(n).length == 2
+
+  case class Term(coef:Int, power:Int)
+
+  def regexPoly(s: String) = {
+    val poly = s
+    // Este funciona
+    //val polyRegex = """([+-]?\d*)x(\^(\d+))?|([+-]\d+)""".r
+    val polyRegex = """([+-]?\d*)x((\d+))?|([+-]\d+)""".r
+
+    val terms = for(s <- polyRegex.findAllIn(poly).matchData) yield {
+      val (coef, power) = if (s.group(4)==null) {
+        val p = if (s.group(3) == null) 1 else s.group(3).toInt
+        val c = if (s.group(1) == "") 1
+        else if (s.group(1) == "-") -1 else s.group(1).toInt
+        (c, p)
+      } else {
+        (s.group(4).toInt, 0)
+      }
+      Term(coef, power)
+    }
+    terms foreach println
+  }
 
 }
 

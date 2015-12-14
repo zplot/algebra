@@ -10,6 +10,7 @@ object PolynomialsOverFp {
   def apply(field: Fp): PolynomialsOverFp = {
     new PolynomialsOverFp(field)
   }
+
 }
 
 
@@ -24,7 +25,12 @@ class PolynomialsOverFp private(val field: Fp)  {
 
 
   // takes a Map[Int, field.T2] and builds a Polynomial
-  def builder(x: Map[Int, field.FpElement]) = Polynomial(x)
+  def builder(x: Map[Int, field.FpElement]): Polynomial = Polynomial(x)
+  def builder(x: (Int, field.FpElement)*): Polynomial = Polynomial(x.toMap)
+  def Poly(x: Map[Int, field.FpElement]): Polynomial = Polynomial(x)
+  def Poly(x: (Int, field.FpElement)*): Polynomial = Polynomial(x.toMap)
+
+
 
   // takes a Map[Int, Int] and builds a Polynomial
   def builder(x: IntMap): T2 = {
@@ -98,6 +104,8 @@ class PolynomialsOverFp private(val field: Fp)  {
     loop
   }
 
+
+
   // See Victor Shoup pag. 472
   def gcdExtended(g: T2, h: T2): (T2, T2, T2) = {
 
@@ -140,6 +148,8 @@ class PolynomialsOverFp private(val field: Fp)  {
     loop (h, exponent, h)
   }
 
+  override def toString = "Polynomials over " + field.toString
+
 
   /**
    * builder of a Polynomial belonging to the polynomial ring
@@ -178,6 +188,8 @@ class PolynomialsOverFp private(val field: Fp)  {
 
 
   class Polynomial private(val map: T1)  {
+
+    val PolynomialRing = PolynomialsOverFp.this
 
     def add(other: T2) = {
 
