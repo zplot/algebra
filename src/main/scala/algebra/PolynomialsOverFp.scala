@@ -27,8 +27,6 @@ class PolynomialsOverFp private(val field: Fp)  {
   // takes a Map[Int, field.T2] and builds a Polynomial
   def builder(x: Map[Int, field.FpElement]): Polynomial = Polynomial(x)
   def builder(x: (Int, field.FpElement)*): Polynomial = Polynomial(x.toMap)
-  def Poly(x: Map[Int, field.FpElement]): Polynomial = Polynomial(x)
-  def Poly(x: (Int, field.FpElement)*): Polynomial = Polynomial(x.toMap)
 
   def builder(x: String): Polynomial = {
     val terms: List[Term] = Utils.regexPoly(x)
@@ -36,6 +34,15 @@ class PolynomialsOverFp private(val field: Fp)  {
     val map = termsList.toMap
     Polynomial(map)
   }
+
+
+  def Poly(x: Map[Int, field.FpElement]): Polynomial = builder(x)
+  def Poly(x: (Int, field.FpElement)*): Polynomial = builder(x.toMap)
+  def Poly(x: String) = builder(x)
+
+
+
+
 
 
 
@@ -130,13 +137,13 @@ class PolynomialsOverFp private(val field: Fp)  {
         loop(rPrime, sPrime, tPrime, rPrimePrime, s - sPrime * q, t - tPrime * q)
       } else {
         val c = r.lc
-        val (d, tmp2) = r / c
+        val (d, _) = r / c
         val sNew = s / c
         val tNew = t / c
         (d, sNew._1, tNew._1, zero, zero, zero)
       }
     }
-    val (gcdFinal,sFinal,tFinal, dummy1, dummy2, dummy3) = loop(r, s, t, rPrime, sPrime, tPrime)
+    val (gcdFinal,sFinal,tFinal, _, _, _) = loop(r, s, t, rPrime, sPrime, tPrime)
     (gcdFinal, sFinal, tFinal)
   }
 
