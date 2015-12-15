@@ -30,6 +30,13 @@ class PolynomialsOverFp private(val field: Fp)  {
   def Poly(x: Map[Int, field.FpElement]): Polynomial = Polynomial(x)
   def Poly(x: (Int, field.FpElement)*): Polynomial = Polynomial(x.toMap)
 
+  def builder(x: String): Polynomial = {
+    val terms: List[Term] = Utils.regexPoly(x)
+    val termsList = terms.map( x => (x.power, field.builder(x.coef)))
+    val map = termsList.toMap
+    Polynomial(map)
+  }
+
 
 
   // takes a Map[Int, Int] and builds a Polynomial

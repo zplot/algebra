@@ -163,8 +163,9 @@ object TestPolynomialsOverFp extends App {
 
   // val poly = "x4-x^3+3x^2-5x+4"
   val poly = "x4-x3+3x2-5x+4"
-  println(poly)
-  val resultado = Utils.regexPoly(poly)
+  val polybien = GFdeX2.builder(poly)
+  println(polybien)
+
 
 
 

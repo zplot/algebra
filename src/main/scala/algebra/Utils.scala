@@ -115,7 +115,7 @@ object Utils {
       }
       Term(coef, power)
     }
-    terms foreach println
+    terms.toList
   }
 
 }
