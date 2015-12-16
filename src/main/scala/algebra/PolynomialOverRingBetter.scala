@@ -1,13 +1,17 @@
 package algebra
 
-object PolynomialOverRing {
+/*
 
-  def apply(ring: Ring): PolynomialOverRing = {
-    new PolynomialOverRing(ring)
+object PolynomialOverRingBetter {
+
+  def apply(ring: Ring): PolynomialOverRingBetter = {
+    new PolynomialOverRingBetter(ring)
   }
 }
 
-class PolynomialOverRing private(val ring: Ring) extends Ring {
+*/
+
+case class PolynomialOverRingBetter private(ring: Ring) extends Ring {
 
   type T1 = Map[Int, ring.T2]
   type T2 = Polynomial
@@ -49,9 +53,9 @@ class PolynomialOverRing private(val ring: Ring) extends Ring {
 
   }
 
-  class Polynomial private(val map: T1) extends RingElement{
+  abstract case class Polynomial private(map: T1) extends RingElement{
 
-    val fatherPolynomialOverRing = PolynomialOverRing.this
+    val fatherPolynomialOverRing = PolynomialOverRingBetter.this
     val elementId = toString
     val isZero = {
       val map = this.map
@@ -88,7 +92,7 @@ class PolynomialOverRing private(val ring: Ring) extends Ring {
     }
 
     def multiply(other: T2) = { // TODO
-      val step1 = for (i <- this.map.toList; j <- other.map.toList) yield (i._1 + j._1, i._2 * j._2)
+    val step1 = for (i <- this.map.toList; j <- other.map.toList) yield (i._1 + j._1, i._2 * j._2)
       val exponents = step1.map(x => x._1).distinct
       val step2 = for (i <- exponents) yield step1.filter(x => x._1 == i)
 
