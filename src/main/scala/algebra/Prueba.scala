@@ -4,7 +4,7 @@ object Prueba extends App {
 
   object TipoA {
     def apply(z: Int): TipoA = {
-      TipoA(2 * z)
+      new TipoA(2 * z)
     }
   }
 

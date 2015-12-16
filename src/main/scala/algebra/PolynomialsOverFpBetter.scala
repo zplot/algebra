@@ -7,8 +7,8 @@ import  Utils._
   */
 object PolynomialsOverFpBetter {
 
-  def apply(field: Fp): PolynomialsOverFp = {
-    new PolynomialsOverFp(field)
+  def apply(field: Fp): PolynomialsOverFpBetter = {
+    new PolynomialsOverFpBetter(field)
   }
 
 }
@@ -17,16 +17,14 @@ object PolynomialsOverFpBetter {
 /**
   * builder of a Polynomial Ring over field
   */
-class PolynomialsOverFpBetter private(val field: Fp)  {
+class PolynomialsOverFpBetter (val field: Fp)  extends PolynomialOverRingBetter {
 
-  type T1 = Map[Int, field.T2]
-  type T2 = Polynomial
+  override type T1 = Map[Int, field.T2]
+  override type T2 = Polynomial
 
 
 
-  // takes a Map[Int, field.T2] and builds a Polynomial
-  def builder(x: Map[Int, field.FpElement]): Polynomial = Polynomial(x)
-  def builder(x: (Int, field.FpElement)*): Polynomial = Polynomial(x.toMap)
+
 
   def builder(x: String): Polynomial = {
     val terms: List[Term] = Utils.regexPoly(x)
@@ -170,7 +168,7 @@ class PolynomialsOverFpBetter private(val field: Fp)  {
     */
   object Polynomial {
 
-    val fatherPolynomialOverFp = PolynomialsOverFp.this
+    val fatherPolynomialOverFp = PolynomialsOverFpBetter.this
 
     def apply(map: T1): T2 = {
 
@@ -193,17 +191,13 @@ class PolynomialsOverFpBetter private(val field: Fp)  {
 
   }
 
-  val zero: T2 = builder(Map(0 -> field.zero))
 
-  val x = builder(Map(1 -> field.one))
-
-  val one = builder(Map(0 -> field.one))
 
 
 
   class Polynomial private(val map: T1)  {
 
-    val PolynomialRing = PolynomialsOverFp.this
+    val PolynomialRing = PolynomialsOverFpBetter.this
 
     def add(other: T2) = {
 
