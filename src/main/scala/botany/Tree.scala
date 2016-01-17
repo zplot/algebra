@@ -32,13 +32,20 @@ object Tree {
     Tree(tmp)
   }
 
+  val idsList = List[Int](0)
+
 }
 
 
 
 case class Tree(children: List[Tree]) {
 
+  val id = Tree.idsList.head + 1
+  Tree.idsList.::(id)
+
   def weight: Int = children.foldLeft(1)(_ + _.weight)
+
+
 
   def canonicalForm: Tree = ???
 
@@ -51,33 +58,6 @@ case class Tree(children: List[Tree]) {
   }
 
 }
-
-// Here's the technique to have a private constructor and a public apply method.
-// http://stackoverflow.com/questions/20030826/scala-case-class-private-constructor-but-public-apply-method
-trait Tree2 {
-  val children: List[Tree2]
-}
-
-object Tree2 {
-
-  val idsList: List[Int] = List[Int](0)
-
-  def apply(children: List[Tree2]): Tree2 = {
-    val last = idsList.head
-    val next = last + 1
-    next :: idsList
-    RichTree2(children)
-  }
-
-
-  private case class RichTree2(children: List[RichTree2]) extends Tree2 {
-
-    val id: Int = idsList.head
-    def weight: Int = children.foldLeft(1)(_ + _.weight)
-
-  }
-}
-
 
 
 
