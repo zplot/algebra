@@ -31,11 +31,21 @@ object TestTree extends App {
   val test2 = Tree("***^^")
   println(test2.weight)
 
-  val z = t7.canonicalForm
-  println(z)
 
-  val zx = Tree.orderTree(Tree("**^**^*^^"))
-  println(zx)
+
+
+
+
+
+  println("=====================")
+
+  val inicio = t7
+  val fin = Tree.orderTree(t7)
+
+
+  println(inicio)
+  println(fin)
+  println(inicio == fin)
 
 
 
