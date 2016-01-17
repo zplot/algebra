@@ -32,7 +32,19 @@ object Tree {
     Tree(tmp)
   }
 
-  val idsList = List[Int](0)
+
+
+  def orderTree(t: Tree): Tree = {
+
+    if (t != Tree(List()))  {
+      val tmp3 = t.children.map( x => orderTree(x))
+      val tmp4 = Tree(tmp3)
+      val tmp5 = tmp4.children.sortBy(_.weight).reverse
+      val tmp6 = Tree(tmp5)
+      tmp6
+    } else t
+
+  }
 
 }
 
@@ -40,24 +52,29 @@ object Tree {
 
 case class Tree(children: List[Tree]) {
 
-  val id = Tree.idsList.head + 1
-  Tree.idsList.::(id)
-
   def weight: Int = children.foldLeft(1)(_ + _.weight)
 
 
 
-  def canonicalForm: Tree = ???
+  def canonicalForm: Tree = {
+
+    this
+  }
+
+
+
 
   override def toString = "*" + children.map(_.toString + "^").mkString("")
 
-  final override def equals(other: Any): Boolean = {
+/*  final override def equals(other: Any): Boolean = {
     val that = other.asInstanceOf[Tree]
     if (that == null) false
     else canonicalForm == that.canonicalForm
-  }
+  }*/
 
 }
+
+
 
 
 
