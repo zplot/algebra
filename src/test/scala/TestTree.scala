@@ -1,4 +1,4 @@
-import Hopf._
+import botany._
 import algebra._
 import  Utils._
 import scala.language.implicitConversions
@@ -10,10 +10,9 @@ object TestTree extends App {
 
   println("Empezamos Rooted Trees")
 
-  // Hace falta importar este implicit para que funcione val test1 = "**".weight
-  // Aunque no es necesario importar el implicit string2List para que funcione val test2 = Tree("**")
-  // No puedo entender porqué: misterio
+
   import Tree.string2Tree
+  implicit def string2List(s: String): List[Tree] = string2Tree(s).children
 
 
 
@@ -27,8 +26,10 @@ object TestTree extends App {
   val t8 = Tree.string2Tree(t7.toString)
   println("t8 = " + t8)
   val t9 = "*"
-  val test1 = "**".weight
-  val test2 = Tree("**")
+  val test1 = "**^".weight
+  println(test1)
+  val test2 = Tree("***^^")
+  println(test2.weight)
 
 
 

@@ -1,4 +1,4 @@
-package Hopf
+package botany
 
 import scala.language.implicitConversions
 

@@ -1,5 +1,5 @@
 import algebra._
-import Hopf._
+import botany._
 
 import  Utils._
 import scala.language.implicitConversions
