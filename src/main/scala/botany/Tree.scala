@@ -53,6 +53,7 @@ object Tree {
 case class Tree(children: List[Tree]) {
 
   def weight: Int = children.foldLeft(1)(_ + _.weight)
+  def canonicalForm = Tree.orderTree(this)
 
 
 

@@ -39,8 +39,8 @@ object TestTree extends App {
 
   println("=====================")
 
-  val inicio = t7
-  val fin = Tree.orderTree(t7)
+  val inicio = Tree("***^*^^*^**^**^*^*^*^*^^*^^**^^")
+  val fin = Tree.orderTree(inicio)
 
 
   println(inicio)
