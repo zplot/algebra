@@ -10,6 +10,11 @@ object TestTree extends App {
 
   println("Empezamos Rooted Trees")
 
+  // Hace falta importar este implicit para que funcione val test1 = "**".weight
+  // Aunque no es necesario importar el implicit string2List para que funcione val test2 = Tree("**")
+  // No puedo entender porqué: misterio
+  import Tree.string2Tree
+
 
 
   val t5 = Tree(List())
@@ -20,6 +25,10 @@ object TestTree extends App {
   println("t7 = " + t7)
   println(t7.weight)
   val t8 = Tree.string2Tree(t7.toString)
+  println("t8 = " + t8)
+  val t9 = "*"
+  val test1 = "**".weight
+  val test2 = Tree("**")
 
 
 
