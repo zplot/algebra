@@ -47,6 +47,14 @@ object TestTree extends App {
   println(fin)
   println(inicio == fin)
 
+  val string1 = inicio.toString
+  val after = Tree.string2SVG1(string1)
+
+  println()
+  println("======= string2SVG =======")
+  println(inicio)
+  println(after)
+
 
 
 
