@@ -48,12 +48,19 @@ object TestTree extends App {
   println(inicio == fin)
 
   val string1 = inicio.toString
-  val after = Tree.string2SVG1(string1)
+  val after = Tree.string2Draw(string1)
 
   println()
   println("======= string2SVG =======")
   println(inicio)
   println(after)
+
+  println()
+  println("======= string2SVG 2 =======")
+  val inicio2 = Tree("**^")
+  println(inicio2)
+  val after2 = Tree.string2Draw(inicio2.toString)
+  println(after2)
 
 
 

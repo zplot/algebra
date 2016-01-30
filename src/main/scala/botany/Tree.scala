@@ -12,16 +12,25 @@ TODO CanonicalForm
 4. Devolver árbl ordenado
 */
 
+case class Point(x: Int, y: Int) {
+  override def toString = "(" + x ++ "," + y + ")"
 
-case class Point(x: Int, y: Int)
-case class Node(position: Point)
-case class Edge(pos1: Point, pos2: Point)
-case class State(cursorActualPos: Point, cursorPreviousPos:Point, nodes: List[Node], edges: List[Edge])
+}
+case class Node(val father: Option[Node], pos: Point) {
+  override def toString = pos.toString
+}
+case class Edge(pos1: Node, pos2: Node)
+case class Draw(actualNode: Node, nodes: List[Node], edges: List[Edge])
+
+
+
 
 
 
 // http://aperiodic.net/phil/scala/s-99/
 object Tree {
+
+
 
   implicit def string2Tree(s: String): Tree = {
     def nextStrBound(pos: Int, nesting: Int): Int =
@@ -37,71 +46,58 @@ object Tree {
     Tree(tmp)
   }
 
-
-
   // Eats a string and drops a list of nodes and a list of edges
-  def string2SVG1(s: String): (List[Node], List[Edge]) = {
+  def string2Draw(s: String): Draw = {
 
-    val hist = List[State](State(Point(0, 1), Point(0, 1), List[Node](), List[Edge]()))
+    val root = Node(None, Point(0,1))
 
-    def stringAnalyze(s: List[Char], hist: List[State]): (List[Char], List[State]) = s match {
+    def show(x: Option[Node]) = x match {
+      case Some(node) => node
+      case None => root
+    }
 
-      case Nil => (Nil, hist)
-      case '*' :: xs => stringAnalyze(xs, newNode(hist))
-      case '^' :: xs => stringAnalyze(xs, goUp(hist))
+    val initialDraw = Draw(root, List[Node](), List[Edge]())
+
+    def stringAnalyze(s: List[Char], dibujo: Draw): (List[Char], Draw) = s match {
+
+      case Nil => (Nil, dibujo)
+      case '*' :: xs => stringAnalyze(xs, newNode(dibujo))
+      case '^' :: xs => stringAnalyze(xs, goUp(dibujo))
 
     }
 
-    def newNode(hist: List[State]): List[State] = {
+    def newNode(dibujo: Draw): Draw = {
 
-      val actualState = hist.head
-      val actual = actualState.cursorActualPos
-      val x = actual.x
-      val y = actual.y
-      val previous = actualState.cursorPreviousPos
-      val nodes = actualState.nodes
-      val edges = actualState.edges
-      val newY = actual.y - 1
-
-      def firstEmptyX(p: Point): Int = {
-        val tmp1 = nodes.filter(node => node.position.y == newY) // Nodes at y = newY
-        val tmp2 = tmp1.map(node => node.position.x) // List of xs
+      def firstEmptyX: Int = {
+        val actualX = dibujo.actualNode.pos.x
+        val actualY = dibujo.actualNode.pos.y
+        val newY = actualY -1
+        val tmp1 = dibujo.nodes.filter(node => node.pos.y == newY )
+        val tmp2 = tmp1.map(node => node.pos.x) // List of xs
         val tmp3 = if (tmp2.isEmpty) 0 else tmp2.max + 1 // highest x
         tmp3 // next empty x
       }
 
-      val newX = firstEmptyX(actual)
-      val newNode = Node(Point(newX, newY))
 
-      val newEdge = Edge(actual, newNode.position)
+      val newNode = Node(Some(dibujo.actualNode), Point(firstEmptyX, dibujo.actualNode.pos.y - 1))
+      val newEdge = Edge(dibujo.actualNode, newNode)
 
-      val newState = State(Point(newX, newY), Point(x, y), newNode :: nodes, newEdge :: edges)
-      newState :: hist
+      Draw(newNode, newNode :: dibujo.nodes, newEdge :: dibujo.edges)
 
     }
 
-    def goUp(hist: List[State]): List[State] = {
+    def goUp(dibujo: Draw): Draw = Draw(show(dibujo.actualNode.father), dibujo.nodes, dibujo.edges)
 
-      val actualState = hist.head
-      val actual = actualState.cursorActualPos
-      val previous = actualState.cursorPreviousPos
-      val nodes = actualState.nodes
-      val edges = actualState.edges
-      val newPreviousPosition = actual
-
-
-      val newState = State(previous, newPreviousPosition, nodes, edges)
-      newState :: hist
-
-    }
-
-    val tmp = stringAnalyze(s.toList, hist)
-
-    (tmp._2.head.nodes, tmp._2.head.edges)
-
-
+    val tmp = stringAnalyze(s.toList, initialDraw)
+    tmp._2
 
   }
+
+
+
+
+
+
 
 
 
@@ -154,6 +150,8 @@ case class Tree(children: List[Tree]) {
   }
 
 }
+
+
 
 
 
