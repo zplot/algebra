@@ -38,25 +38,32 @@ trait FiniteGroup extends Group {
     println()
   }
 
-  def cayleyTable2: String = { // TODO
+
+
+
+  def cayleyTableOK: List[List[String]] = {
+
     val list1 = (1 to cardinal).toList // Enumeración de los elementos
     val traductor = (list1 zip elementsOrdered).toMap
     val traductorInverso = (list1 zip elementsOrdered).toMap.map(_.swap)
-    val result = List[String]("w")
-    val texto1 = "Cayley table of " + this.structureId + ":"
-    val texto2 = List(texto1)
-    val texto3 = result ::: texto2
-    val texto4 = texto3 ::: List[String]("w")
-    val texto5 = texto4 ::: List[String]("w")
-    val texto6 =
-    for {
-        i <- 1 to cardinal
-        j <- 1 to cardinal
-    } yield traductorInverso(traductor(i).multiply(traductor(j))).toString
+
+    val tmp1 = List.range( 1, cardinal + 1)
+
+    def row(i: Int): List[Int] = {
+      val tmp1 = for (j <- 1 to cardinal) yield traductorInverso(traductor(i).multiply(traductor(j)))
+      val tmp2 = tmp1.toList
+      tmp2
+    }
 
 
-    texto6.toString()
+
+    val tmp2: List[List[Int]] = tmp1.map( i => row(i))
+    val tmp3: List[List[String]] = tmp2.map(row => row.map(elem => elem.toString))
+    tmp3
+
   }
+
+
 
 
   trait FiniteGroupElement extends GroupElement {

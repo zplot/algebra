@@ -23,10 +23,6 @@ case class Edge(pos1: Node, pos2: Node)
 case class Draw(actualNode: Node, nodes: List[Node], edges: List[Edge])
 
 
-
-
-
-
 // http://aperiodic.net/phil/scala/s-99/
 object Tree {
 
@@ -82,7 +78,12 @@ object Tree {
       val newNode = Node(Some(dibujo.actualNode), Point(firstEmptyX, dibujo.actualNode.pos.y - 1))
       val newEdge = Edge(dibujo.actualNode, newNode)
 
-      Draw(newNode, newNode :: dibujo.nodes, newEdge :: dibujo.edges)
+      if (dibujo.actualNode.pos == Point(0, 1)) {
+        Draw(newNode, newNode :: dibujo.nodes, dibujo.edges)
+      } else {
+        Draw(newNode, newNode :: dibujo.nodes, newEdge :: dibujo.edges)
+      }
+
 
     }
 
